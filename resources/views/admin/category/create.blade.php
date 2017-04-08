@@ -1,4 +1,4 @@
-@extends('main')
+@extends('admin.main')
 @section('content')
 
 <div class="container">
@@ -14,9 +14,6 @@
     </nav>
 
     <h1>Create a Nerd</h1>
-
-
-
 
     {{ Form::open(array('url' => '/admin/category')) }}
 

@@ -11,32 +11,35 @@
 |
 */
 
-Route::get('/','HomeController@index');
 
-Route::get('/seach/', function () {
-    return view('seach');
+
+Route::group(['middleware' => ['web']], function () {
+
+    Route::get('/','HomeController@index');
+
+    Route::get('/seach/', function () {
+        return view('seach');
+    });
+
+    Route::get('/catalog/', function () {
+        return view('catalog');
+    });
+
+
+    // public router
+    Route::get('/product/','ProductController@index');
+    Route::get('/product/{slug}/','ProductController@detail');
+    Route::get('/cart/','CartController@index');
+    Route::get('/cart/{product_id}/','CartController@add');
+    Route::get('/cart_delate/{cart_id}/','CartController@delate');
+    Route::get('/cart/{cart_id}/{quantity}','CartController@update');
+    Route::get('/seach/','SeachController@index');
+    Route::get('/category/{id}/','ProductController@category');
+
+
 });
 
-//Route::get('/order/', function () {
-//    return view('order');
-//});
-//Route::get('/cart/', function () {
-//    return view('cart');
-//});
 
-Route::get('/catalog/', function () {
-    return view('catalog');
-});
-
-// public router
-Route::get('/product/','ProductController@index');
-Route::get('/product/{slug}/','ProductController@detail');
-Route::get('/cart/','CartController@index');
-Route::get('/cart/{product_id}/','CartController@add');
-Route::get('/cart_delate/{cart_id}/','CartController@delate');
-Route::get('/cart/{cart_id}/{quantity}','CartController@update');
-Route::get('/seach/','SeachController@index');
-Route::get('/category/{id}/','ProductController@category');
 
 // admin router
 Route::resource('/admin/category','CategoryController');

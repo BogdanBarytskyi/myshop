@@ -8,16 +8,14 @@ use App\Models\Product;
 class ProductController extends Controller{
     public function index(){
        $category = Category::all();
-       $products = Product::where('active', '=',0)->paginate(16);
-
-        //dd($category);
+       $products = Product::where('active', '=',1)->paginate(16);
 
         return view('products',['products'=>$products, 'category'=>$category, 'active_category'=>false]);
     }
 
     public function category($id){
         $category = Category::all();
-        $products = Product::where([['category_id','=',$id],['active', '=',0]])->paginate(16);
+        $products = Product::where([['category_id','=',$id],['active', '=',1]])->paginate(16);
 
 
         return view('products',['products'=>$products, 'category'=>$category, 'active_category'=>$id]);
@@ -40,12 +38,17 @@ class ProductController extends Controller{
 
 
     public function detail($slug){
-         $products = Product::all();
+
         $product = Product::where([
            ['active', '=', 1],
             ['slag', '=', $slug]
             ]
         )->first();
+
+//        dd($product->category);
+
+
+
 
 
        return view('product',['product'=>$product]);
