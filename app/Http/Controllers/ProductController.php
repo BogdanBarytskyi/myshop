@@ -2,16 +2,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Models\Category;
 use App\Models\Product;
 
 class ProductController extends Controller{
     public function index(){
-       $products = Product::all();
+       $category = Category::all();
        $products = Product::where('active', '=',0)->paginate(16);
 
-        //dd($products);
+        //dd($category);
 
-       return view('products',['products'=>$products]);
+        return view('products',['products'=>$products, 'category'=>$category, 'active_category'=>false]);
+    }
+
+    public function category($id){
+        $category = Category::all();
+        $products = Product::where([['category_id','=',$id],['active', '=',0]])->paginate(16);
+
+
+        return view('products',['products'=>$products, 'category'=>$category, 'active_category'=>$id]);
     }
 
     public function add()
