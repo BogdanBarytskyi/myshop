@@ -71,6 +71,8 @@ class AdminProductController extends Controller{
             $select[$options->id]=$options->name;
         }
 
+        $product->active = ($product->active==0)? 1 : 0;
+
         return view('admin.product.edit', ['product'=>$product, 'category'=>$select]);
 
     }
@@ -78,6 +80,8 @@ class AdminProductController extends Controller{
 
     public function update($id, Request $request)
     {
+
+
         $validator = Validator::make($request->all(), [
             'name'  => 'required',
             'price' => 'required',
@@ -96,7 +100,7 @@ class AdminProductController extends Controller{
             $product->description= $request->input('description');
             $product->images= $request->input('images');
             $product->sort= $request->input('sort');
-            $product->active= ($request->input('active')=='on')? true : false;
+            $product->active= $request->input('active');
             $product->currency= $request->input('currency');
             $product->category_id= $request->input('category_id');
             $product->save();
