@@ -16,4 +16,4 @@
 <link href="{{ asset('/assets/css/main.css') }}" rel="stylesheet">
 
 <script src="{{ asset('/assets/js/main.js') }}"></script>
-
+<meta name="csrf-token" content="{{ csrf_token() }}">

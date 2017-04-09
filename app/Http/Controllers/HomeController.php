@@ -10,10 +10,6 @@ class HomeController extends Controller{
         $category = Category::all();
         $products = Product::where('active', '=',1)->paginate(16);
 
-        $id = Session::getId();
-
-        dd($id);
-
         return view('home',['products'=>$products, 'category'=>$category, 'active_category'=>false]);
     }
 }

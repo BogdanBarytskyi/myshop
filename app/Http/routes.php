@@ -30,9 +30,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/product/','ProductController@index');
     Route::get('/product/{slug}/','ProductController@detail');
     Route::get('/cart/','CartController@index');
-    Route::get('/cart/{product_id}/','CartController@add');
+    Route::get('/cart/{product_id}/{quantity}/','CartController@addToCart');
+
     Route::get('/cart_delate/{cart_id}/','CartController@delate');
-    Route::get('/cart/{cart_id}/{quantity}','CartController@update');
+   // Route::get('/cart/{cart_id}/{quantity}','CartController@update');
     Route::get('/seach/','SeachController@index');
     Route::get('/category/{id}/','ProductController@category');
 

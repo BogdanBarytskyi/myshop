@@ -27,14 +27,18 @@
                 <h6 class="title-attr"><small>количество</small></h6>
                 <div>
                     <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                    <input value="1" />
+                    <input id="quantity" value="1" />
                     <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
             </div>
 
             <!-- Botones de compra -->
             <div class="section" style="padding-bottom:20px;">
-                <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Добавить в корзину</button>
+                <button  data-id="{{$product->id}}" class="add__detail btn btn-success">
+                    <span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
+
+                    </span> Добавить в корзину
+                </button>
 
             </div>
         </div>
