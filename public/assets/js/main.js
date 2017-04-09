@@ -1,14 +1,47 @@
-$(function(){
+$(document).ready(function(){
+
+
 
     $('.add').on('click', function(){
+
         var id = $(this).data('id'),
             self = $(this);
 
-        $.post('/add_product/'+id,function(res){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method: "GET",
+            url: '/cart/'+id+'/1/'
+        }).done(function( msg ) {
             self.text("Товр в корзине").addClass('btn-danger');
         });
+
     });
 
+    $('.add__detail').on('click', function(){
+
+        var id = $(this).data('id'),
+            self = $(this);
+        var  quantity = ($("#quantity").val()>0)? $("#quantity").val() : 1;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method: "GET",
+            url: '/cart/'+id+'/'+quantity+'/'
+        }).done(function( msg ) {
+            self.text("Товр в корзине").addClass('btn-danger');
+        });
+
+    });
 });
 
 $(document).ready(function(){

@@ -15,6 +15,17 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/cart/">Корзина</a></li>
+                {{--<li id="basket"> 0  </li>--}}
+            </ul>
+
+
         </div><!-- /.nav-collapse -->
+
+
+
     </div><!-- /.container -->
 </nav><!-- /.navbar -->
