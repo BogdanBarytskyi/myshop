@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Models\Product;
+use App\Models\Category;
 
 class SeachController extends Controller{
     public function index(Request $request){
@@ -9,8 +10,14 @@ class SeachController extends Controller{
             $products = Product::where([['name','like','%'.$search.'%'],['active', '=', 1]])
             ->orderBy('name')
             ->paginate(16);
+            $category = Category::all();
         
-        return view('seach',['products'=>$products]);
+        return view('seach',[
+            'products'=>$products,
+            'search'=>$search,
+            'active_category'=>false,
+            'category' =>$category
+        ]);
     }
 }
 ?>
