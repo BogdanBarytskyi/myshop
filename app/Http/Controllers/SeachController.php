@@ -10,7 +10,7 @@ class SeachController extends Controller{
             ->orderBy('name')
             ->paginate(16);
         
-        return view('seach');
+        return view('seach',['products'=>$products]);
     }
 }
 ?>
