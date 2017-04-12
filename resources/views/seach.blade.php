@@ -18,9 +18,9 @@
 <div class="container" style="margin-top:50px;">
     <div class="row">
         @if(count($products)==0)
-            <h1>Поиск по запросу {{$search}} не дал результата</h1>
+            <h1>Поиск по запросу "{{$search}}" не дал результата</h1>
         @else
-            <h1>Поиск по запросу {{$search}}</h1>
+            <h1>Поиск по запросу "{{$search}}"</h1>
         @foreach($products as $indexkey => $item)
 
         <div class="col-xs-12 col-sm-6 col-md-3">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="info">
                     <div class="row">
-                        <div class="price col-md-6">s
+                        <div class="price col-md-6">
                             <h5> {{$item->name}}</h5>
                         </div>
                         <div class="rating hidden-sm col-md-6">

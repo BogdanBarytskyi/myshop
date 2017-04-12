@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Models\Category;
 use App\Models\Product;
+use Session;
+
 
 class ProductController extends Controller{
     public function index(){
@@ -44,11 +46,38 @@ class ProductController extends Controller{
             ['slag', '=', $slug]
             ]
         )->first();
-
-//        dd($product->category);
-
-
-
+        $ar_pr =array();
+//
+//        if (Session::has('view_product'))
+//        {
+//            $view_product =  Session::get('view_product');
+//
+//            $ar_pr =  explode(',',$view_product);
+//
+//
+//            if(in_array($product->id,$ar_pr)==false){
+//                $ar_pr[] = $product->id;
+//                $view_product_sesion = implode(",",$ar_pr);
+//                Session::put('view_product', $view_product_sesion);
+//
+//                dd($ar_pr);
+//            }
+//
+//        }else{
+//           // Session::put('view_product', $product->id);
+//            $view_product =  Session::get('view_product');
+//
+//
+//            $ar_pr =  explode(',',$view_product);
+//
+//            if(in_array($product->id,$ar_pr)==false){
+//                $ar_pr[] = $product->id;
+//                $view_product_sesion = implode(",",$ar_pr);
+//                Session::put('view_product', $view_product_sesion);
+//
+//                dd($ar_pr);
+//            }
+//        }
 
 
        return view('product',['product'=>$product]);

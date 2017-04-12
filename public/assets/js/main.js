@@ -49,14 +49,14 @@ $(document).ready(function(){
     $("ul.menu-items > li").on("click",function(){
         $("ul.menu-items > li").removeClass("active");
         $(this).addClass("active");
-    })
+    });
 
     $(".attr,.attr2").on("click",function(){
         var clase = $(this).attr("class");
 
         $("." + clase).removeClass("active");
         $(this).addClass("active");
-    })
+    });
 
     //-- Click on QUANTITY
     $(".btn-minus").on("click",function(){
@@ -67,7 +67,7 @@ $(document).ready(function(){
         }else{
             $(".section > div > input").val("1");
         }
-    })
+    });
     $(".btn-plus").on("click",function(){
         var now = $(".section > div > input").val();
         if ($.isNumeric(now)){
@@ -76,4 +76,42 @@ $(document).ready(function(){
             $(".section > div > input").val("1");
         }
     })
-})
+});
+
+function SetQuantity(id, el) {
+    var quantity = $(el).val();
+
+    $.ajax({
+        method: "GET",
+        url: '/cart_update/'+id+'/'+quantity+'/'
+    }).done(function( res ) {
+        if(res && res.cart &&  res.cart.quantity){
+            $('#cart_item_sum_'+id).text(res.cart.price * res.cart.quantity);
+            $('#total_sum_cart').text(res.sum);
+            $('.item-number').text(res.count);
+        }
+
+
+    });
+}
+
+function DeleteCart(id, el) {
+    var quantity = $(el).val();
+
+    $.ajax({
+        method: "GET",
+        url: '/cart_delate/'+id
+    }).done(function( res ) {
+        if(res && res.cart &&  res.cart.quantity){
+            $('#cart_'+id).remove();
+            $('#total_sum_cart').text(res.sum);
+            $('.item-number').text(res.count);
+
+            if(res.count==0){
+                window.location.reload();
+            }
+        }
+
+
+    });
+}
