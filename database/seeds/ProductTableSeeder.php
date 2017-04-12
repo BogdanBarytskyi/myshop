@@ -14,6 +14,8 @@ class ProductTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
+
+
         for ($i=0;$i<50; $i++){
             dd($faker->name);
             DB::table('product')->insert([

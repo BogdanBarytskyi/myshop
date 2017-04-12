@@ -4,9 +4,13 @@ use App\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
 
+use App\Traits\CartTrait;
 use Session;
 
 class CartController extends Controller{
+
+    use CartTrait;
+
     public function index(){
         $total_price = 0;
 
@@ -19,11 +23,63 @@ class CartController extends Controller{
             )->get();
 
 
-            foreach ($cart as $item){
+            foreach ($cart as $k=> $item){
+                if($item->product_id>0) {
+                    $cart[$k]['product'] = Product::find($item->product_id);
+                }
                 $total_price +=($item->price*$item->quantity);
             }
+
+            //dd($cart);
         }
         return view('cart',['cart'=>$cart,'total_price'=>$total_price]);
+    }
+
+
+    public function cart_delate($cart_id){
+        $cart = Cart::find($cart_id);
+        $cart->delete();
+
+        $cart_user = Cart::where([
+                ['cart_id', '=', self::CartId()],
+                ['order_id', '=', 0]
+            ]
+        )->get();
+
+        $total_price =0;
+        foreach ($cart_user as $k=> $item){
+            $total_price +=($item->price*$item->quantity);
+        }
+
+
+        return response()->json([
+            'cart' => $cart,
+            'count'=> count($cart_user),
+            'sum' =>$total_price
+        ]);
+    }
+    public function update($cart_id, $quantity){
+        $cart = Cart::find($cart_id);
+        $cart->quantity = $quantity;
+        $cart->save();
+
+        $cart_user = Cart::where([
+                ['cart_id', '=', self::CartId()],
+                ['order_id', '=', 0]
+            ]
+        )->get();
+
+        $total_price =0;
+        foreach ($cart_user as $k=> $item){
+            $total_price +=($item->price*$item->quantity);
+        }
+
+
+        return response()->json([
+            'cart' => $cart,
+            'count'=> count($cart_user),
+            'sum' =>$total_price
+        ]);
     }
 
     public function addToCart($product_id, $quantity){
@@ -63,17 +119,5 @@ class CartController extends Controller{
 
     }
 
-    public function CartId(){
-
-        if (Session::has('cart'))
-        {
-            $cart_id =  Session::get('cart');
-        }else{
-            Session::put('cart', str_random(32));
-            $cart_id =  Session::get('cart');
-        }
-
-        return $cart_id;
-    }
 }
 ?>

@@ -17,9 +17,10 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/','HomeController@index');
 
-    Route::get('/seach/', function () {
-        return view('seach');
-    });
+
+      Route::get('/confirmation/{order}', function ($order) {
+          return view('confirmation',['order'=>$order]);
+      });
 
     Route::get('/catalog/', function () {
         return view('catalog');
@@ -32,10 +33,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/cart/','CartController@index');
     Route::get('/cart/{product_id}/{quantity}/','CartController@addToCart');
 
-    Route::get('/cart_delate/{cart_id}/','CartController@delate');
+    Route::get('/cart_update/{cart_id}/{quantity}','CartController@update');
+
+    Route::get('/cart_delate/{cart_id}/','CartController@cart_delate');
    // Route::get('/cart/{cart_id}/{quantity}','CartController@update');
-    Route::get('/seach/','SeachController@index');
+    Route::get('/search/','SeachController@index');
     Route::get('/category/{id}/','ProductController@category');
+
+
+    Route::get('/order','OrderController@index');
+    Route::post('/order','OrderController@add');
+
 
 
 });

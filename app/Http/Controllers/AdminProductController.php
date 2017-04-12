@@ -27,8 +27,9 @@ class AdminProductController extends Controller{
 
 
 
-    public function store(Request $request)
-        {
+    public function store(Request $request){
+
+
             $validator = Validator::make($request->all(), [
                 'name'  => 'required',
                 'price' => 'required',
@@ -54,6 +55,7 @@ class AdminProductController extends Controller{
                 $product->currency= $request->input('currency');
                 $product->category_id= $request->input('category_id');
                 $product->save();
+
                 return redirect('admin/product/create');
 
             }
@@ -80,7 +82,6 @@ class AdminProductController extends Controller{
 
     public function update($id, Request $request)
     {
-
 
         $validator = Validator::make($request->all(), [
             'name'  => 'required',
